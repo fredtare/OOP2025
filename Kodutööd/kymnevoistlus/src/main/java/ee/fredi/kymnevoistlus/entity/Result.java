@@ -1,9 +1,6 @@
 package ee.fredi.kymnevoistlus.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +14,14 @@ import lombok.Setter;
 
 
 //siin on sportlane
-public class Contestant {
+public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String country;
-    private Long age;
+    private String sport;
+    private Long points;
 
+    @ManyToOne
+    private Contestant contestant;
 }
