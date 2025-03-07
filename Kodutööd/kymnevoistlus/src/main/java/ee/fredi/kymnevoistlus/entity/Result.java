@@ -23,5 +23,6 @@ public class Result {
     private Long points;
 
     @ManyToOne
+    @JoinColumn(name = "contestant_id")
     private Contestant contestant;
 }

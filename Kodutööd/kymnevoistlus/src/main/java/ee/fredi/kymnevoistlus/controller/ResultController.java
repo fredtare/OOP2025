@@ -50,7 +50,7 @@ public class ResultController {
         }
 
         /*    //teeme asjad nii et saab esitada ainult kindlaid spordialasid.
-        if (result.getSport() != "kivipall" ||
+        if (!result.getSport().equals("kivipall")  ||
             result.getSport() != "noolejooks" ||
             result.getSport() != "kastimaraton" ||
             result.getSport() != "katilõikamine" ||

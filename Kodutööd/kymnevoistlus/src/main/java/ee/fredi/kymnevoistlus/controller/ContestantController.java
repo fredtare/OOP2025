@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //contestantcontroller peab saama lisada ja muutma ja kustutama võistlejaid riike ja vanuseid.
 
@@ -38,11 +39,11 @@ public class ContestantController {
         return contestantRepository.findAll();
     }
 
-
+    //leiab võistleja ja seotud tulemused
     @GetMapping("contestant/{id}")
-    public List<Contestant> getContestantWithPoints(@PathVariable Long id) {
+    public Optional<Contestant> getContestantWithPoints(@PathVariable Long id) {
         return contestantRepository.findById(id);
-        return resultRepository.findAllById(id);
+        //return resultRepository.contestantId(id); tee parem kontestanti idga result
     }
 
 
