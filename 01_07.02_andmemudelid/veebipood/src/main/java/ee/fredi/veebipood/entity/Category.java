@@ -6,11 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 
 @Entity //tekitab sest autom. andmebaasi tabeli
 //nii saab muuta tabeli nime erinevaks klassinimest @Table(name = "kategooria")

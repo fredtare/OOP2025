@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 //Resultkontrollerist peaks saama vaadata, muuta ja lisada ja kustutada tulemusi
 @RestController
 public class ResultController {

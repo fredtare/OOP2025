@@ -3,11 +3,14 @@ package ee.fredi.veebipood.controller;
 import ee.fredi.veebipood.entity.Product;
 import ee.fredi.veebipood.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.RuntimeErrorException;
+import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController //sellega tehakse api päringuid
 public class ProductController {
 
@@ -84,5 +87,32 @@ public class ProductController {
         productRepository.save(product); //v]tab id j'rgi toote ja salvestab andmebaasi
         return productRepository.findAll();
     }
+    //
+//    @GetMapping("/category-products")
+//    public List<Product> getCategoryProducts(@RequestParam Long categoryId){
+//
+//           List<Product> products = productRepository.findAll();
+//           List<Product> filteredProducts = new ArrayList<>();
+//
+//           for(Product productIndex: products) {  //tyyp, sinu pandud nimi, mis arrayst
+//
+//               if(productIndex. getCategory().getId().equals(categoryId));
+//                filteredProducts.add(productIndex);
+//           }
+//
+//           return filteredProducts;
+//    }
+    //== kontrollib kas vasak ja parem on identne
+    //.equals kontrollib nende väärtuste identsust. Kas klass ka vastab samamoodi mitte ainult mälupesa sisu
+
+    //sama mis seal üleval aga tegime product repos uue sql requesti.
+    @GetMapping("/category-products")
+    public Page<Product> getCategoryProducts(@RequestParam Long categoryId, Pageable pageable){
+        if (categoryId == -1){
+            return productRepository.findAll(pageable); //return l]petab funktsiooni, else blokki pole vaja
+        }
+        return productRepository.findByCategory_Id(categoryId, pageable);
+    }
+
 
 }//lõpu logiline

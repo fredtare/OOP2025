@@ -6,13 +6,11 @@ import ee.fredi.veebipood.repository.OrderRepository;
 import ee.fredi.veebipood.repository.PersonRepository;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController //lubab API päringuid vastu võtta
 public class UserController {
     @Autowired
@@ -20,11 +18,6 @@ public class UserController {
     @Autowired
     private OrderRepository orderRepository;
 
-    @PostMapping("orders")
-    public List<WebshopOrder> addOrder(@RequestBody WebshopOrder order) {
-        orderRepository.save(order);
-        return orderRepository.findAll();
-    }
 
     //peab saatma id ja parooli
     @PostMapping("login")

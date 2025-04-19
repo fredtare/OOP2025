@@ -4,17 +4,22 @@ import ee.fredi.veebipood.entity.Product;
 import ee.fredi.veebipood.entity.WebshopOrder;
 import ee.fredi.veebipood.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:5173")
+@RestController
 public class OrderController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @GetMapping("orders")
+    public List<WebshopOrder> getOrders() {
+        return orderRepository.findAll();
+    }
 
     @PostMapping("orders")//see on api otspunkti nimetus lihtsalt suvaline.
     public List<WebshopOrder> addOrder(@RequestBody WebshopOrder order) {

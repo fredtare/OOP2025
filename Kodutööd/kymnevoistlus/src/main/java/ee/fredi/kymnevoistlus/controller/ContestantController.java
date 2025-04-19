@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 //contestantcontroller peab saama lisada ja muutma ja kustutama võistlejaid riike ja vanuseid.
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class ContestantController {
     @Autowired
