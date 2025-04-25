@@ -11,7 +11,8 @@ import Orders from './pages/Orders';
 import Arrayd from './pages/Arrayd';
 import Navmenu from './components/Navmenu';
 import Cart from './pages/Cart';
-
+import SingleProduct from './pages/SingleProduct';
+import EditProduct from './pages/EditProduct';
 
 function App() {
 
@@ -22,6 +23,8 @@ function App() {
       <Navmenu />
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/product/:productId" element={<SingleProduct/>} />
+        <Route path="/admin/editproduct/:productId" element={<EditProduct/>} />
         <Route path="/manage/products" element={<ManageProducts />} />
         <Route path="/manage/categories" element={<ManageCategories />} />
         <Route path="/manage/persons" element={<ManagePersons />} />
@@ -32,6 +35,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/*" element={<div>Not Found</div>} />
+        
       </Routes>
     </>
   );

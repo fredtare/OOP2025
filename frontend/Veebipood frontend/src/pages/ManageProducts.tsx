@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Product } from "../models/Product"
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function ManageProducts() {
 const [products, setProducts] = useState<Product[]>([]);
@@ -58,7 +59,6 @@ const deleteProduct = (id: number) => {
           setProducts(json)
           toast.success("Uus toode lisatud!")
         } else {
-          alert(json.message)
           toast.error(json.message)
         }
 
@@ -105,10 +105,14 @@ const deleteProduct = (id: number) => {
               <td>{product.name}</td>
               <td>{product.price}</td>
               <td>{product.image}</td>
-              <td>{product.active}</td>
               <td>{product.category?.name}</td>
               <td>
                 <button onClick={() => deleteProduct(product.id)}> Delet!</button>
+              </td>
+              <td>
+                <Link to={"/admin/editproduct/" + product.id}>
+                <button>Muuda Toodet</button>
+                </Link>
               </td>
             </tr>
           ))}

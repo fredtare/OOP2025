@@ -106,6 +106,9 @@ public class ProductController {
     //.equals kontrollib nende väärtuste identsust. Kas klass ka vastab samamoodi mitte ainult mälupesa sisu
 
     //sama mis seal üleval aga tegime product repos uue sql requesti.
+
+    //sortimine
+    //localhost:8080/category-products?categoryId+1&page=0&size=2&sort=price,asc
     @GetMapping("/category-products")
     public Page<Product> getCategoryProducts(@RequestParam Long categoryId, Pageable pageable){
         if (categoryId == -1){

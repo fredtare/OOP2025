@@ -99,7 +99,7 @@ function ManageCategories() {
   
         <ToastContainer />
       </div>
-    )
+  )
 }
 
 export default ManageCategories

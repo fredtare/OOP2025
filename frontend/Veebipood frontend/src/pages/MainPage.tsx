@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Category } from "../models/Category";
 import { Product } from "../models/Product";
-import {Link, Route, Routes} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 
@@ -23,6 +23,9 @@ function MainPage() {
   const [page, setPage] = useState(0);
   const [activeCategory, setActiveCategory] = useState(-1);
   const productsByPageRef = useRef<HTMLSelectElement>(null); //htmli inputiga sidumiseks(select on input)
+  //localhost:8080/category-products?categoryId+1&page=0&size=2&sort=price,asc see "&sort=" osa on kasutuses
+  const [sort, setSort] = useState("id,asc");
+
 
 //) nagu -> onload funktsioon. Läheb kohe Käima alguses ja sinna saab ka dep arrayd kasutada (need [] sulud lõpus)
   useEffect(() => {
@@ -32,12 +35,17 @@ function MainPage() {
   }, []);
 
 
-
   //usega algavad asjad on reacti v'rgid mida vaja importida!
   const showByCategory =  useCallback((categoryId: number, currentPage: number) => {
     setActiveCategory(categoryId);
     setPage(currentPage);
-    fetch("http://localhost:8080/category-products?categoryId=" + categoryId + "&size=" + productsByPage + "&page=" + currentPage)
+    fetch("http://localhost:8080/category-products?categoryId=" 
+      + categoryId 
+      + "&size=" + productsByPage 
+      + "&page=" + currentPage
+      + "&sort=" + sort) 
+
+        //res on lihtsalt lühend @responsist
       .then(res=>res.json()) 
       .then(json=> {
         setProduktid(json.content);
@@ -45,7 +53,7 @@ function MainPage() {
         setTotalPages(json.totalPages);
       }) 
 
-  }, [productsByPage])
+  }, [productsByPage, sort])
 
   useEffect(() => {
     showByCategory(-1, 0);
@@ -66,7 +74,13 @@ function MainPage() {
     //.current?  tähendab typescript näeb et ref on alguses null
     //ehk ta on 2 väärtusevõimalust. Lõppväärtus tuleb alles siit productsByPageRef inputist. 
     <div> 
-
+      <button onClick={()=> setSort("id,asc")}>Sorteeri Uudsuse järgi</button>
+      <button onClick={()=> setSort("id,desc")}>Sorteeri Vanuse Järgi</button>  
+      <button onClick={()=> setSort("price,desc")}>Sorteeri Kallimate järgi</button>
+      <button onClick={()=> setSort("price,asc")}>Sorteeri Odavamad Enne</button> 
+      <button onClick={()=> setSort("name,desc")}>Sorteeri Tähestiku Järgi</button>
+      <button onClick={()=> setSort("name,asc")}>Sorteeri Tähestiku järgi aga vastupidi</button>
+      <br />
       <select ref={productsByPageRef} onChange={() => setProductsByPage(Number(productsByPageRef.current?.value))}>
         <option>1</option>
         <option>2</option>
@@ -85,6 +99,10 @@ function MainPage() {
       { produktid.map(produkt => <div>
         <div>{produkt.name} </div>
         <div>{produkt.price}</div>
+
+        <Link to={"/product/" + produkt.id}>
+        <button>Kiika Kaupa</button>
+        </Link>
 
         </div> )}
         <br></br>
